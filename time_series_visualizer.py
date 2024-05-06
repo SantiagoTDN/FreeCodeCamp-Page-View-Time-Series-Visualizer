@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
 from pandas.plotting import register_matplotlib_converters
@@ -58,7 +57,7 @@ def draw_box_plot():
 
     # Draw box plots (using Seaborn)
     fig, axs = plt.subplots(1, 2, figsize=(14, 6))
-    sns.boxplot(data=df_box,x="Year",y="Page Views",hue="Year",fliersize=1,ax=axs[0], legend=False,palette="tab10").set_title("Year-wise Box Plot (Trend)")
+    sns.boxplot(data=df_box,x="Year",y="Page Views",hue="Year",fliersize=1,ax=axs[0], legend==False,palette="tab10").set_title("Year-wise Box Plot (Trend)")
     sns.boxplot(data=df_box,x="Month",y="Page Views",hue="Month",fliersize=1,ax=axs[1],order=("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),palette="husl").set_title("Month-wise Box Plot (Seasonality)")
     fig=fig.figure
 
