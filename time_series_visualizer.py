@@ -25,12 +25,22 @@ def draw_line_plot():
 
 def draw_bar_plot():
     # Copy and modify data for monthly bar plot
-    df_bar = None
+    df_bar = df.copy()
+    df_bar["Months"]=df_bar["date"].dt.strftime("%Y %B")
+    df_bar=df_bar.groupby("Months").mean()
+    df_bar=df_bar.reset_index()
+    df_bar["Months"]=pd.to_datetime(df_bar["Months"])
+    df_bar["Years"]=pd.to_datetime(df_bar["Months"])
+    df_bar["Months"]=df_bar["Months"].dt.strftime("%B")
+    df_bar["Years"]=df_bar["Years"].dt.strftime("%Y")
+    s=pd.Series(["January","February","March","April","May","June","July","August","September","October","November","December"])
+    df_bar["Months"] = pd.Categorical(df_bar["Months"],categories=s,ordered=True)
+    df_bar=df_bar.pivot(index = 'Years', columns = 'Months', values = 'value')
 
     # Draw bar plot
-
-
-
+    fig=df_bar.plot(kind="bar",ylabel="Average Page Views")
+    fig=fig.figure
+    
 
 
     # Save image and return fig (don't change this part)
@@ -43,10 +53,14 @@ def draw_box_plot():
     df_box.reset_index(inplace=True)
     df_box['year'] = [d.year for d in df_box.date]
     df_box['month'] = [d.strftime('%b') for d in df_box.date]
+    df_box=df_box.rename(columns={"value":"Page Views"})
+    s=pd.Series(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"])
 
     # Draw box plots (using Seaborn)
-
-
+    fig, axs = plt.subplots(1, 2, figsize=(14, 6))
+    sns.boxplot(data=df_box,x="year",y="Page Views",hue="year",fliersize=1,ax=axs[0], legend=False,palette="tab10").set_title("Year-wise Box Plot (Trend)")
+    sns.boxplot(data=df_box,x="month",y="Page Views",hue="month",fliersize=1,ax=axs[1],order=s,palette="husl").set_title("Month-wise Box Plot (Seasonality)")
+    fig=fig.figure
 
 
 
