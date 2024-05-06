@@ -54,7 +54,7 @@ def draw_box_plot():
     df_box['Year'] = [d.year for d in df_box.date]
     df_box['Month'] = [d.strftime('%b') for d in df_box.date]
     df_box=df_box.rename(columns={"value":"Page Views"})
-    s=pd.Series(["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"])
+    s=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
     # Draw box plots (using Seaborn)
     fig, axs = plt.subplots(1, 2, figsize=(14, 6))
