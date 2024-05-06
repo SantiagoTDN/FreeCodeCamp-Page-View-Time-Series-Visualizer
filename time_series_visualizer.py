@@ -5,15 +5,16 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = None
+df = pd.read_csv("/workspace/boilerplate-page-view-time-series-visualizer/fcc-forum-pageviews.csv", parse_dates=[0])
 
 # Clean data
-df = None
+df = df.loc[(df["value"]>=df["value"].quantile(0.025)) & (df["value"]<=df["value"].quantile(0.975))]
 
 
 def draw_line_plot():
-    # Draw line plot
-
+    fig=df.plot(figsize=(16, 6),x="date",y="value",title="Daily freeCodeCamp Forum Page Views 5/2016-12/2019",xlabel="Date",ylabel="Page Views",legend=False, color="red")
+    fig=fig.figure
+# Draw line plot
 
 
 
